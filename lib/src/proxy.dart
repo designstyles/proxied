@@ -33,12 +33,20 @@ class Proxy {
   /// decorator: Default or Custom implementation of abstract class to validate
   ///            AuthorizedDecorator
   Future<ResponseType> authorizedProxy(
-    Future Function() method, {
+    Function method, {
     required dynamic isAuhorizedModel,
     required AbsAuthorizationDecorator decorator,
+    List<dynamic>? params,
   }) async {
+    Future wrappedMethod() {
+      if (params == null || params.isEmpty) {
+        return (method)();
+      }
+      return Function.apply(method, params) as Future;
+    }
+
     final proxy = ProxyHandler(
-      originalMethod: method,
+      originalMethod: wrappedMethod,
       decorator: decorator,
       model: isAuhorizedModel,
     );
