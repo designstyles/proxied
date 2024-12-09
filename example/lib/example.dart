@@ -13,6 +13,18 @@ Future<ResponseType> getUsers() async {
   return resp;
 }
 
+Future<ResponseType> getUsersWithParams() async {
+  final response = await Proxy().authorizedProxy(
+    UsersApi().getUsersWithParams,
+    params: ['test user'],
+    isAuhorizedModel: 'token',
+    decorator: AuthorizationDecorator(),
+  );
+
+  final resp = ResponseType(error: response.error, results: response.results);
+  return resp;
+}
+
 Future<ResponseType> getUsersFailed() async {
   final response = await Proxy().authorizedProxy(
     UsersApi().getUsers,
