@@ -1,7 +1,6 @@
 name: proxied
 description: A small middleware package for wrapping api logic in a uniform object response.
 version: 1.0.2
-publish_to: none
 repository: https://github.com/designstyles/proxied
 
 environment:
